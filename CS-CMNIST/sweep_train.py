@@ -243,9 +243,9 @@ if __name__ == "__main__":
         device = torch.device('cuda:{}'.format(args.d))
     else:
         device = "cpu"
-
-
-    print("RRRRRRR Hyper sweep for CE-IRM")
+    
+    
+    print("RRRRRRR Hyper sweep for conditional entropy CE-IRM")
     report_val_acc = 0
     report_hyper = {}
     args.algorithm = "IBIRM" ### see algorithms.py - this is CE-IRM
@@ -272,3 +272,94 @@ if __name__ == "__main__":
     print("Report with best val performance: val acc:{:.2f} +- {:.2f}  test acc:{:.2f} +- {:.2f}".format(
         report_val_acc, report_val_std, report_test_acc, report_test_std))
     print("Corresponding hypers:", report_hyper)
+    
+    
+    ##### Other algotihms
+    # print("RRRRRRR Hyper sweep for ERM")
+    # args.algorithm = "ERM"
+    # test_acc, test_std, val_acc, val_std = run(args, hparams, device)
+    # print("Report with best val performance: val acc:{:.2f} +- {:.2f}  test acc:{:.2f} +- {:.2f}".format(
+    #     val_acc, val_std, test_acc, test_std))
+
+    # print("RRRRRRR Hyper sweep for IB-ERM")
+    # report_val_acc = 0
+    # report_hyper = {}
+    # args.algorithm = "IBERM"
+    # hparams['ib_penalty_anneal_iters'] = 0
+    # for ib_lambda in [0.1, 1, 10, 1e2, 1e3, 1e4]:
+    #     for times in [1, 1.2, 1.4, 1.6, 1.8]:
+    #         hparams["ib_lambda"] = ib_lambda * times
+    #         hparams["class_condition"] = False
+    #         test_acc, test_std, val_acc, val_std = run(args, hparams, device)
+    #         print("RRRRRRR ib_lambda:{:9.2f} "
+    #               "val acc: {:.2f} +- {:.2f} test acc: {:.2f} +- {:.2f}".format(
+    #             ib_lambda * times, val_acc, val_std, test_acc, test_std))
+
+    #         if val_acc > report_val_acc:
+    #             report_val_acc = val_acc
+    #             report_val_std = val_std
+    #             report_test_acc = test_acc
+    #             report_test_std = test_std
+    #             report_hyper = {"ib_lambda": ib_lambda * times}
+
+    # print("Report with best val performance: val acc:{:.2f} +- {:.2f}  test acc:{:.2f} +- {:.2f}".format(
+    #     report_val_acc, report_val_std, report_test_acc, report_test_std))
+    # print("Corresponding hypers:", report_hyper)
+
+
+    # print("RRRRRRR Hyper sweep for IRM")
+    # report_val_acc = 0
+    # report_hyper = {}
+    # args.algorithm = "IRM"
+    # hparams["normalize"] = True
+    # hparams['irm_penalty_anneal_iters'] = 0
+    # # for irm_lambda in [0.1, 0.5, 1, 5, 10, 1e2]:
+    # for irm_lambda in [0.1, 1, 10, 1e2, 1e3, 1e4]:
+    #     for times in [1, 1.2, 1.4, 1.6, 1.8]:
+    #         hparams["irm_lambda"] = irm_lambda * times
+    #         test_acc, test_std, val_acc, val_std = run(args, hparams, device)
+    #         print("RRRRRRR irm_lambda:{:9.2f}    "
+    #               "val acc: {:.2f} +- {:.2f} test acc: {:.2f} +- {:.2f}".format(
+    #             irm_lambda * times, val_acc, val_std, test_acc, test_std))
+
+    #         if val_acc > report_val_acc:
+    #             report_val_acc = val_acc
+    #             report_val_std = val_std
+    #             report_test_acc = test_acc
+    #             report_test_std = test_std
+    #             report_hyper = {"irm_lambda": irm_lambda * times}
+    # print("Report with best val performance: val acc:{:.2f} +- {:.2f}  test acc:{:.2f} +- {:.2f}".format(
+    #     report_val_acc, report_val_std, report_test_acc, report_test_std))
+    # print("Corresponding hypers:", report_hyper)
+
+
+    # print("RRRRRRR Hyper sweep for IB-IRM") #### this is the original IB-IRM
+    # report_val_acc = 0
+    # report_hyper = {}
+    # args.algorithm = "IBIRM"
+    # hparams['ib_penalty_anneal_iters'] = 0
+    # hparams["normalize"] = True
+    # hparams['irm_penalty_anneal_iters'] = 0
+    # for ib_lambda in [0, 0.1, 1, 10, 100, 1000]:  #
+    # # for ib_lambda in [0, 0.1,]:
+    #     hparams["ib_lambda"] = ib_lambda
+    #     hparams["class_condition"] = False
+    #     # for irm_lambda in [0.1, 0.5, 1, 5, 10, 1e2, 1e3, 1e4]:
+    #     for irm_lambda in [0, 0.1, 1, 10, 100, 1000]:
+    #     # for irm_lambda in [0, 0.1,]:
+    #         hparams["irm_lambda"] = irm_lambda
+    #         test_acc, test_std, val_acc, val_std = run(args, hparams, device)
+    #         print("RRRRRRR ib_lambda:{:9.2f}   irm_lambda:{:9.2f} "
+    #               "val acc: {:.2f} +- {:.2f} test acc: {:.2f} +- {:.2f}".format(
+    #             ib_lambda, irm_lambda, val_acc, val_std, test_acc, test_std))
+
+    #         if val_acc > report_val_acc:
+    #             report_val_acc = val_acc
+    #             report_val_std = val_std
+    #             report_test_acc = test_acc
+    #             report_test_std = test_std
+    #             report_hyper = {"ib_lambda": ib_lambda, "irm_lambda": irm_lambda}
+
+    # print("Report with best val performance: val acc:{:.2f} +- {:.2f}  test acc:{:.2f} +- {:.2f}".format(
+    #     report_val_acc, report_val_std, report_test_acc, report_test_std))
+    # print("Corresponding hypers:", report_hyper)
