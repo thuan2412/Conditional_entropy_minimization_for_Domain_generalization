@@ -212,7 +212,7 @@ if __name__ == "__main__":
     device = torch.device('cpu:{}'.format(args.d))
     mnist_train, mnist_val = get_mnist()
 
-    print("Hyper sweep for CE-IRM")
+    print("Hyper sweep for CE-IRM") #### for conditional entropy minimization invariant risk algorithm
     report_val_acc = 0
     report_hyper = {}
     args.method = "irm"
@@ -239,3 +239,95 @@ if __name__ == "__main__":
     print("Report with best val performance: val acc:{:.2f} +- {:.2f}  test acc:{:.2f} +- {:.2f}".format(
         report_val_acc, report_val_std, report_test_acc, report_test_std))
     print("Corresponding hypers:", report_hyper)
+    
+    
+    ##### Other algorithms:
+    # print("for ERM")
+    # args.method = "erm"
+    # args.ib_lambda = 0
+    # train_acc, train_std, val_acc, val_std, test_acc, test_std = run(args, mnist_train, device)
+    # print("train acc: {:.2f} +- {:.2f} val acc: {:.2f} +- {:.2f} test acc: {:.2f} +- {:.2f}".format(
+    #                   train_acc, train_std, val_acc, val_std, test_acc, test_std))
+
+    # print("Hyper sweep for IB-ERM")
+    # report_val_acc = 0
+    # report_hyper = {}
+    # args.method = "erm"
+    # args.inter = 4  # fix the use of intermediate feature
+    # for ib_lambda in [1e-1, 1, 1e1, 1e2, 1e3, 1e4]:
+    #     for times in [1, 1.2, 1.4, 1.6, 1.8]:
+    #         args.ib_lambda = ib_lambda * times
+    #         args.cc = cc = False
+
+    #         train_acc, train_std, val_acc, val_std, test_acc, test_std = run(args, mnist_train, device)
+    #         print("ib_lambda:{:8.2f}     cc:{:5}    "
+    #               "train acc: {:.2f} +- {:.2f} val acc: {:.2f} +- {:.2f} test acc: {:.2f} +- {:.2f}".format(
+    #             ib_lambda * times, cc,
+    #             train_acc, train_std, val_acc, val_std, test_acc, test_std))
+
+    #         if val_acc > report_val_acc:
+    #             report_val_acc = val_acc
+    #             report_val_std = val_std
+    #             report_test_acc = test_acc
+    #             report_test_std = test_std
+    #             report_hyper = {"ib_lambda": ib_lambda * times}
+
+    # print("Report with best val performance: val acc:{:.2f} +- {:.2f}  test acc:{:.2f} +- {:.2f}".format(
+    #         report_val_acc, report_val_std, report_test_acc, report_test_std))
+    # print("Corresponding hypers:", report_hyper)
+
+
+    # print("Hyper sweep for IRM")
+    # # print("Hyper sweep for REx")
+    # report_val_acc = 0
+    # report_hyper = {}
+    # args.method = "irm"
+    # for penalty_weight in [1e-1, 1, 1e1, 1e2, 1e3, 1e4]:
+    #     for times in [1, 1.2, 1.4, 1.6, 1.8]:
+    #         args.penalty_weight = penalty_weight * times
+
+    #         train_acc, train_std, val_acc, val_std, test_acc, test_std = run(args, mnist_train, device)
+    #         print("penalty_weight:{:9.2f}    "
+    #               "train acc: {:.2f} +- {:.2f} val acc: {:.2f} +- {:.2f} test acc: {:.2f} +- {:.2f}".format(
+    #             penalty_weight * times,
+    #             train_acc, train_std, val_acc, val_std, test_acc, test_std))
+
+    #         if val_acc > report_val_acc:
+    #             report_val_acc = val_acc
+    #             report_val_std = val_std
+    #             report_test_acc = test_acc
+    #             report_test_std = test_std
+    #             report_hyper = {"penalty_weight": penalty_weight * times}
+
+    # print("Report with best val performance: val acc:{:.2f} +- {:.2f}  test acc:{:.2f} +- {:.2f}".format(
+    #         report_val_acc, report_val_std, report_test_acc, report_test_std))
+    # print("Corresponding hypers:", report_hyper)
+
+    #### original IB-IRM 
+    # print("Hyper sweep for IB-IRM")
+    # report_val_acc = 0
+    # report_hyper = {}
+    # args.method = "irm"
+    # args.inter = 4  # fix the use of intermediate feature
+    # for ib_lambda in [0.1, 1, 1e1, 1e2, 1e3, 1e4]:
+    #     args.ib_lambda = ib_lambda
+    #     args.cc = cc = False
+    #     for penalty_weight in [0.1, 1, 10, 1e2, 1e3, 1e4, 1e5]:
+    #         args.penalty_weight = penalty_weight
+
+    #         train_acc, train_std, val_acc, val_std, test_acc, test_std = run(args, mnist_train, device)
+    #         print("ib_lambda:{:8.2f}     cc:{:5}    p_weight:{:9.2f}    "
+    #               "train acc: {:.2f} +- {:.2f} val acc: {:.2f} +- {:.2f} test acc: {:.2f} +- {:.2f}".format(
+    #               ib_lambda, cc, penalty_weight,
+    #               train_acc, train_std, val_acc, val_std, test_acc, test_std))
+
+    #         if val_acc > report_val_acc:
+    #             report_val_acc = val_acc
+    #             report_val_std = val_std
+    #             report_test_acc = test_acc
+    #             report_test_std = test_std
+    #             report_hyper = {"ib_lambda": ib_lambda, "penalty_weight": penalty_weight}
+
+    # print("Report with best val performance: val acc:{:.2f} +- {:.2f}  test acc:{:.2f} +- {:.2f}".format(
+    #     report_val_acc, report_val_std, report_test_acc, report_test_std))
+    # print("Corresponding hypers:", report_hyper)
