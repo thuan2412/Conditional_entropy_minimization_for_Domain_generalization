@@ -4,6 +4,6 @@
 
 # To reproduce the results from IRM, ERM, IB-IRM and IB-ERM, you need to change the name of algorithm or, just use the original code from https://github.com/ahujak/IB-IRM 
 
-#The checkpoints are not stored, and the final results will be printed after the whole run. 
+#**The checkpoints are not stored, and the final results will be printed after the whole run. **
 
-# Our code is based on the [this repo](https://github.com/ahujak/IB-IRM) at https://github.com/ahujak/IB-IRM. 
+# Our code is based on the [this repo](https://github.com/ahujak/IB-IRM) at https://github.com/ahujak/IB-IRM
