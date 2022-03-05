@@ -220,7 +220,7 @@ if __name__ == "__main__":
     for ib_lambda in [0.1, 1, 10, 100, 1000, 10000]:
         args.ib_lambda = ib_lambda
         args.cc = cc = False
-        for penalty_weight in [0.1, 1, 10, 100, 1000, 10000]:
+        for penalty_weight in [10, 100, 1000, 10000, 1e5, 1e6]:
             args.penalty_weight = penalty_weight
 
             train_acc, train_std, val_acc, val_std, test_acc, test_std = run(args, mnist_train, device)
