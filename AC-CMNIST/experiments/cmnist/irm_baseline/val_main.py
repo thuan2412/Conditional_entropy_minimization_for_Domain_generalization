@@ -108,7 +108,7 @@ def train(n_steps, envs, model, optimizer, device, l2_weight, p_weight, penalty_
                         logits, inter_logits = model(env['images'][val_size:], inter=args.inter)
                     else:
                         logits = model(env['images'][val_size:])
-
+                inter_logits = F.normalize(inter_logits, dim=-1)
                 env['nll'] = mean_nll(logits, env['labels'][val_size:])
                 env['acc'] = mean_accuracy(logits, env['labels'][val_size:])
                 env['penalty'] = penalty(logits, env['labels'][val_size:])
@@ -144,6 +144,7 @@ def train(n_steps, envs, model, optimizer, device, l2_weight, p_weight, penalty_
         if method == 'irm':
             train_penalty = torch.stack([envs[0]['penalty'], envs[1]['penalty']]).mean()
             penalty_weight = (p_weight if step >= penalty_anneal_iters else .0)
+            penalty_weight = penalty_weight*100
             loss += penalty_weight * train_penalty
             if penalty_weight > 1.0:
                 loss /= penalty_weight
@@ -220,7 +221,7 @@ if __name__ == "__main__":
     for ib_lambda in [0.1, 1, 10, 100, 1000, 10000]:
         args.ib_lambda = ib_lambda
         args.cc = cc = False
-        for penalty_weight in [0.1, 1, 10, 100, 1000, 10000, 1000000]:
+        for penalty_weight in [0.1, 1, 10, 100, 1000, 10000]:
             args.penalty_weight = penalty_weight
 
             train_acc, train_std, val_acc, val_std, test_acc, test_std = run(args, mnist_train, device)
