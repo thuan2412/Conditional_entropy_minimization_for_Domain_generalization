@@ -144,7 +144,7 @@ def train(n_steps, envs, model, optimizer, device, l2_weight, p_weight, penalty_
         if method == 'irm':
             train_penalty = torch.stack([envs[0]['penalty'], envs[1]['penalty']]).mean()
             penalty_weight = (p_weight if step >= penalty_anneal_iters else .0)
-            penalty_weight = penalty_weight*100
+            penalty_weight = penalty_weight*1000
             loss += penalty_weight * train_penalty
             if penalty_weight > 1.0:
                 loss /= penalty_weight
