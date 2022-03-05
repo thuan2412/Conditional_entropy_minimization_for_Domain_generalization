@@ -182,7 +182,7 @@ class IBIRM(IRM):
         all_y = torch.cat([y for x, y in minibatches])
 
         inter_logits = self.featurizer(all_x)
-  
+        # inter_logits = F.normalize(inter_logits, dim=-1)
         all_logits = self.classifier(inter_logits)
         all_logits_idx = 0
         for i, (x, y) in enumerate(minibatches):
