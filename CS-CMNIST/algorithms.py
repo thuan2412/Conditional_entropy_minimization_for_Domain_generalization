@@ -197,7 +197,7 @@ class IBIRM(IRM):
             loss /= (1 + penalty_weight)
 
         ###### for conditional entropy term
-        class_loss = F.cross_entropy(logits,y).div(math.log(2)) 
+        class_loss = F.cross_entropy(all_logits,all_y).div(math.log(2)) 
         entropy_loss = inter_logits.var(dim=0).mean()
         var_loss = entropy_loss + class_loss
         loss += ib_penalty_weight * var_loss
